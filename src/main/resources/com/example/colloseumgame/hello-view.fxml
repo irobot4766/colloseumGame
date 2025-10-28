@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane prefHeight="400" prefWidth="781.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.colloseumgame.HelloController">
+    <tabs>
+
+        <!-- ======================= SETUP TAB ======================= -->
+        <Tab closable="false" text="Setup">
+            <AnchorPane style="-fx-background-color: #f4f4f4;">
+
+                <VBox alignment="CENTER" layoutY="7.0" prefHeight="400.0" prefWidth="656.0" spacing="25" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+
+                    <!-- Title -->
+                    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Welcome to the Colosseum" />
+
+                    <!-- Story / King's Message -->
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-padding: 0 30 0 30;" text="The King grants you 50 coins and a single upgrade point. Choose your path, peasant, and fight for survival!" textAlignment="CENTER" wrapText="true" />
+
+                    <!-- Skill Selection -->
+                    <VBox alignment="CENTER" spacing="10">
+                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Choose Your Starting Skill:" />
+
+                        <HBox alignment="CENTER" spacing="15">
+                            <ToggleButton fx:id="strengthToggle" onAction="#strengthToggle" style="-fx-text-fill: #333; -fx-font-size: 14;" text="Strength" />
+                            <ToggleButton fx:id="defenseToggle" onAction="#defenseToggle" style="-fx-text-fill: #333; -fx-font-size: 14;" text="Defense" />
+                            <ToggleButton fx:id="luckToggle" onAction="#luckToggle" style="-fx-text-fill: #333; -fx-font-size: 14;" text="Luck" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- Start Button -->
+                    <Button fx:id="startButton" onAction="#startGame" style="-fx-text-fill: #000; -fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 8 20 8 20;" text="Enter the Colosseum" />
+
+                </VBox>
+            </AnchorPane>
+        </Tab>
+
+    </tabs>
+</TabPane>
