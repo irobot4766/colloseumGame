@@ -2,6 +2,7 @@ package com.example.colloseumgame;
 
 public class Game {
     public static Character player;
+    public static Character enemy;
 
     public static void initialize(String skill) {
         if (skill.equals("strength")) {
@@ -11,5 +12,20 @@ public class Game {
         } else {
             player = new Character("Peasant", 0, 0, 10);
         }
+
+    }
+
+    public static double getStrengthP() {
+        return player.getAttack()/10;
+    }
+    public static double getDefenseP() {
+        return player.getDefense()/10;
+    }
+    public static double getLuckP() {
+        return player.getLuck()/10;
+    }
+
+    public static void shopLogic() {
+
     }
 }
