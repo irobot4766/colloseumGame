@@ -1,5 +1,7 @@
 package com.example.colloseumgame;
 
+import java.util.ArrayList;
+
 public class Character {
     private String name;
 
@@ -8,6 +10,7 @@ public class Character {
     private int damage;
     private int defense;
     private int luck;
+    private ArrayList<Item> items;
 
     private double health;
 
@@ -38,6 +41,14 @@ public class Character {
     }
     public double getDefense() {
         return defense;
+    }
+
+    public String[] getItemNames() {
+        String[] charItems = new String[items.size()];
+        for (int i = 0; i < items.size(); i++) {
+            charItems[i] = items.get(i).getName();
+        }
+        return charItems;
     }
 
 }
