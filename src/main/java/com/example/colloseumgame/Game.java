@@ -5,7 +5,9 @@ import java.util.Arrays;
 
 public class Game {
     public static Character player;
-    public static Character enemy;
+    public static Character enemy = new Character("Knight", 2, 2, 2);
+    public static int coins;
+    public static int upgradePoints;
     public static String[] upgrades = {"Strength", "Defense", "Luck"};
     public static String[] itemNames = {"Sword", "Shield", "Clover"};
 
@@ -30,8 +32,8 @@ public class Game {
         return player.getLuck()/10;
     }
 
-    public static void shopLogic() {
-
+    public static double getPlayerDmg() {
+        return (player.baseDamage() - enemy.baseDefense());
     }
 
     public static ArrayList<String> getUpgrades() {

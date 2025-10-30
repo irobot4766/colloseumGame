@@ -22,6 +22,8 @@ public class FXMLUpdate {
     @FXML
     private Tab shopTab;
     @FXML
+    private Tab battleTab;
+    @FXML
     private ProgressBar strengthBar;
     @FXML
     private ProgressBar defenseBar;
@@ -32,6 +34,11 @@ public class FXMLUpdate {
     private ListView upgradeListView;
     @FXML
     private ListView itemListView;
+
+    @FXML
+    private ProgressBar enemyHealthBar;
+    @FXML
+    private ProgressBar playerHealtBar;
 
     private String skill;
 
@@ -75,5 +82,22 @@ public class FXMLUpdate {
             itemListView.getItems().add(item);
         }
 
+    }
+
+    public void startBattle(ActionEvent actionEvent) {
+        shopTab.setDisable(true);
+        battleTab.setDisable(false);
+    }
+
+    public void attackButton(ActionEvent actionEvent) {
+        double damage = Game.getPlayerDmg();
+
+        enemyHealthBar.setProgress(enemyHealthBar.getProgress()-damage/100); //only works if enemy hp is 100
+    }
+
+    public void blockButton(ActionEvent actionEvent) {
+    }
+
+    public void dodgeButton(ActionEvent actionEvent) {
     }
 }

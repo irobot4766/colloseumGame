@@ -7,12 +7,11 @@ public class Character {
 
     private double audience;
     private int attack;
-    private int damage;
     private int defense;
     private int luck;
     private ArrayList<Item> items = new ArrayList<>();
 
-    private double health;
+    private double health = 100;
 
     public Character(String name, int attack, int defense, int luck) {
         this.name = name;
@@ -22,9 +21,22 @@ public class Character {
     }
 
     public int baseDamage() {
-        return (int) (attack*Math.random()+damage);
+        int bonusDamage = 0;
+        if (getEffect(0)) bonusDamage += 5;
+        return (int) (attack*Math.random()+bonusDamage);
     }
 
+    public int baseDefense() {
+        int bonusDefense = 0;
+        if (getEffect(1)) bonusDefense += 5;
+        return (int) (defense*Math.random()+bonusDefense);
+    }
+
+    public boolean getEffect(int effect) {
+        for (Item item: items) {
+            if (item.getEffect()==effect) return true;
+        } return false;
+    }
     public int blockedDamage() {
         return (int) (defense*Math.random()*(int)((double)luck/2));
     }

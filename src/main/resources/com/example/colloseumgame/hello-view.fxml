@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -45,7 +47,7 @@
                 </VBox>
             </AnchorPane>
         </Tab>
-      <Tab fx:id="shopTab" text="Shop">
+      <Tab fx:id="shopTab" disable="true" text="Shop">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -74,15 +76,69 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <Button layoutX="470.0" layoutY="294.0" mnemonicParsing="false" onAction="#startBattle" prefHeight="33.0" prefWidth="239.0" text="Start Battle">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
         </content>
       </Tab>
-      <Tab text="Battle">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
-      </Tab>
+        <Tab fx:id="battleTab" disable="true" text="Battle">
+            <content>
+                <AnchorPane prefHeight="400.0" prefWidth="781.0" style="-fx-background-color: #f4f4f4;">
+
+                    <!-- Opponent Info -->
+                    <VBox alignment="CENTER_RIGHT" layoutX="481.0" layoutY="21.0" spacing="5">
+                        <Label fx:id="enemyName" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Opponent: Gladiator Rex" />
+                        <ProgressBar fx:id="enemyHealthBar" prefWidth="250.0" progress="1.0" style="-fx-accent: #e63946;" />
+                        <Label fx:id="enemyHPLabel" style="-fx-font-size: 12px; -fx-text-fill: #555;" text="HP: 100 / 100" />
+                    </VBox>
+
+                    <!-- Player Info -->
+                    <VBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="270.0" spacing="5">
+                        <Label fx:id="playerName" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" text="You: Challenger" />
+                        <ProgressBar fx:id="playerHealthBar" prefWidth="250.0" progress="1.0" style="-fx-accent: #2a9d8f;" />
+                        <Label fx:id="playerHPLabel" style="-fx-font-size: 12px; -fx-text-fill: #555;" text="HP: 100 / 100" />
+                    </VBox>
+
+                    <!-- Battle Log -->
+                    <Label fx:id="battleLog" alignment="CENTER" layoutX="180.0" layoutY="115.0" prefHeight="120.0" prefWidth="420.0" style="-fx-text-fill: #333; -fx-control-inner-background: #ffffff;" textAlignment="CENTER" wrapText="true">
+                  <font>
+                     <Font size="40.0" />
+                  </font></Label>
+
+                    <!-- Move Buttons -->
+                    <HBox alignment="CENTER" layoutX="341.0" layoutY="271.0" prefHeight="69.0" prefWidth="379.0" spacing="20">
+                        <Button onAction="#attackButton" style="-fx-background-color: #dcdcdc; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 20 8 20;" text="Attack" />
+                        <Button onAction="#blockButton" style="-fx-background-color: #dcdcdc; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 20 8 20;" text="Block" />
+                        <Button onAction="#dodgeButton" style="-fx-background-color: #dcdcdc; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 20 8 20;" text="Dodge" />
+                    </HBox>
+
+                    <!-- Background Lines (for structure) -->
+                    <Line endX="730" endY="100" startX="50" startY="100" stroke="#ccc" />
+                    <Line endX="730" endY="250" startX="50" startY="250" stroke="#ccc" />
+               <ImageView fitHeight="254.0" fitWidth="213.0" layoutY="102.0" opacity="0.16" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../images/audience.jpg" />
+                  </image>
+               </ImageView>
+               <Label fx:id="battleLog1" alignment="CENTER" layoutX="209.0" layoutY="115.0" prefHeight="120.0" prefWidth="363.0" style="-fx-text-fill: #333; -fx-control-inner-background: #ffffff;" textAlignment="CENTER" wrapText="true">
+                  <font>
+                     <Font size="40.0" />
+                  </font>
+               </Label>
+               <ImageView fitHeight="315.0" fitWidth="215.0" layoutX="565.0" layoutY="103.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.16" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../images/audience.jpg" />
+                  </image>
+               </ImageView>
+
+                </AnchorPane>
+            </content>
+        </Tab>
+
 
     </tabs>
 </TabPane>
