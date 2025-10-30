@@ -1,12 +1,13 @@
 package com.example.colloseumgame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game {
     public static Character player;
     public static Character enemy;
     public static String[] upgrades = {"Strength", "Defense", "Luck"};
-    public static String[] items = {"Sword", "Shield", "Clover"};
+    public static String[] itemNames = {"Sword", "Shield", "Clover"};
 
     public static void initialize(String skill) {
         if (skill.equals("strength")) {
@@ -44,8 +45,10 @@ public class Game {
 
     public static ArrayList<String> getItems() {
         ArrayList<String> itemList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            if (items[i].equals(player.getItemNames()[i])) itemList.add(items[i]);
+        for (String item : itemNames) {
+            if (!player.getItemNames().contains(item)) {
+                itemList.add(item);
+            }
         }
         return itemList;
     }

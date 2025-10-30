@@ -10,7 +10,7 @@ public class Character {
     private int damage;
     private int defense;
     private int luck;
-    private ArrayList<Item> items;
+    private ArrayList<Item> items = new ArrayList<>();
 
     private double health;
 
@@ -43,12 +43,12 @@ public class Character {
         return defense;
     }
 
-    public String[] getItemNames() {
-        String[] charItems = new String[items.size()];
-        for (int i = 0; i < items.size(); i++) {
-            charItems[i] = items.get(i).getName();
+    public ArrayList<String> getItemNames() {
+        ArrayList<String> itemNames = new ArrayList<>();
+        for (Item item : items) {
+            itemNames.add(item.getName());
         }
-        return charItems;
+        return itemNames;
     }
 
 }
