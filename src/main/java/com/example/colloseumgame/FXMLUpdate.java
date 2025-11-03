@@ -90,9 +90,9 @@ public class FXMLUpdate {
     }
 
     public void attackButton(ActionEvent actionEvent) {
-        double damage = Game.getPlayerDmg();
+        Game.attackChoice();
 
-        enemyHealthBar.setProgress(enemyHealthBar.getProgress()-damage/100); //only works if enemy hp is 100
+        enemyHealthBar.setProgress(Game.enemyHealth()); //only works if enemy hp is 100
     }
 
     public void blockButton(ActionEvent actionEvent) {

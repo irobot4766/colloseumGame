@@ -1,7 +1,6 @@
 package com.example.colloseumgame;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game {
     public static Character player;
@@ -19,7 +18,11 @@ public class Game {
         } else {
             player = new Character("Peasant", 0, 0, 10);
         }
+        player.setSkill(skill);
+    }
 
+    public static double enemyHealth() {
+        return enemy.getHealth();
     }
 
     public static double getStrengthP() {
@@ -32,8 +35,19 @@ public class Game {
         return player.getLuck()/10;
     }
 
-    public static double getPlayerDmg() {
-        return (player.baseDamage() - enemy.baseDefense());
+    public static double attackChoice() {
+        String enemyChoice;
+        enemyChoice = getEnemyChoice();
+        if (enemyChoice.equals("Attack")) {
+            enemy.setHealth(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
+        } else if (enemyChoice.equals("Block")) {
+            enemy.setHealth()
+        }
+    }
+
+    public static String getEnemyChoice() {
+        String[] choices = {"Attack", "Block", "Dodge"};
+        return choices[(int) (Math.random()*3)];
     }
 
     public static ArrayList<String> getUpgrades() {

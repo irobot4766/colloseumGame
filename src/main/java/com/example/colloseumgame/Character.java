@@ -9,6 +9,7 @@ public class Character {
     private int attack;
     private int defense;
     private int luck;
+    private String skill;
     private ArrayList<Item> items = new ArrayList<>();
 
     private double health = 100;
@@ -18,6 +19,22 @@ public class Character {
         this.attack = attack;
         this.defense = defense;
         this.luck = luck;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double x) {
+        health -= x;
     }
 
     public int baseDamage() {
