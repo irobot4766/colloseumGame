@@ -2,10 +2,7 @@ package com.example.colloseumgame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 
 import java.util.List;
 
@@ -36,9 +33,16 @@ public class FXMLUpdate {
     private ListView itemListView;
 
     @FXML
+    private Label enemyName;
+    @FXML
     private ProgressBar enemyHealthBar;
     @FXML
     private ProgressBar playerHealtBar;
+
+    @FXML
+    private Label enemyHPLabel;
+    @FXML
+    private Label playerHPlabel;
 
     private String skill;
 
@@ -87,12 +91,13 @@ public class FXMLUpdate {
     public void startBattle(ActionEvent actionEvent) {
         shopTab.setDisable(true);
         battleTab.setDisable(false);
+        enemyName.setText("Opponent: " + Game.enemyName());
     }
 
     public void attackButton(ActionEvent actionEvent) {
         Game.attackChoice();
-
-        enemyHealthBar.setProgress(Game.enemyHealth()); //only works if enemy hp is 100
+        enemyHealthBar.setProgress(Game.enemyHealth()/100); //only works if enemy hp is 100
+        enemyHPLabel.setText("HP : " + (int) Game.enemyHealth() + " / 100");
     }
 
     public void blockButton(ActionEvent actionEvent) {

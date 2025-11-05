@@ -37,6 +37,10 @@ public class Character {
         health -= x;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int baseDamage() {
         int bonusDamage = 0;
         if (getEffect(0)) bonusDamage += 5;

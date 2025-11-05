@@ -21,6 +21,8 @@ public class Game {
         player.setSkill(skill);
     }
 
+    public static String enemyName() {return enemy.getName();}
+
     public static double enemyHealth() {
         return enemy.getHealth();
     }
@@ -35,14 +37,21 @@ public class Game {
         return player.getLuck()/10;
     }
 
-    public static double attackChoice() {
+    public static void attackChoice() {
         String enemyChoice;
         enemyChoice = getEnemyChoice();
         if (enemyChoice.equals("Attack")) {
             enemy.setHealth(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
+            System.out.println(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
         } else if (enemyChoice.equals("Block")) {
-            enemy.setHealth()
+            double damage = player.baseDamage()+(player.getSkill().equals("strength")?5:0)-enemy.baseDefense();
+            if (damage < 0) damage = 0;
+            enemy.setHealth(damage);
+            System.out.println(damage);
+        } else {
+//            if (Math.random()*) enemy.getluck > 3
         }
+        System.out.println(enemy.getHealth());
     }
 
     public static String getEnemyChoice() {
