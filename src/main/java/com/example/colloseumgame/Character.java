@@ -14,14 +14,11 @@ public class Character {
 
     private double health = 100;
 
-    public Character(String name, int attack, int defense, int luck) {
+    public Character(String name, int attack, int defense, int luck, String skill) {
         this.name = name;
         this.attack = attack;
         this.defense = defense;
         this.luck = luck;
-    }
-
-    public void setSkill(String skill) {
         this.skill = skill;
     }
 

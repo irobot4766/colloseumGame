@@ -37,12 +37,12 @@ public class FXMLUpdate {
     @FXML
     private ProgressBar enemyHealthBar;
     @FXML
-    private ProgressBar playerHealtBar;
+    private ProgressBar playerHealthBar;
 
     @FXML
     private Label enemyHPLabel;
     @FXML
-    private Label playerHPlabel;
+    private Label playerHPLabel;
 
     private String skill;
 
@@ -96,8 +96,10 @@ public class FXMLUpdate {
 
     public void attackButton(ActionEvent actionEvent) {
         Game.attackChoice();
-        enemyHealthBar.setProgress(Game.enemyHealth()/100); //only works if enemy hp is 100
+        enemyHealthBar.setProgress(Game.enemy.getHealth()/100); //only works if enemy hp is 100
         enemyHPLabel.setText("HP : " + (int) Game.enemyHealth() + " / 100");
+        playerHealthBar.setProgress(Game.player.getHealth()/100);
+        playerHPLabel.setText("HP : " + (int) Game.player.getHealth() + " / 100");
     }
 
     public void blockButton(ActionEvent actionEvent) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Game {
     public static Character player;
-    public static Character enemy = new Character("Knight", 2, 2, 2);
+    public static Character enemy = new Character("Knight", 3, 5, 100, "defense");
     public static int coins;
     public static int upgradePoints;
     public static String[] upgrades = {"Strength", "Defense", "Luck"};
@@ -12,13 +12,12 @@ public class Game {
 
     public static void initialize(String skill) {
         if (skill.equals("strength")) {
-            player = new Character("Peasant", 5, 3, 1);
+            player = new Character("Peasant", 5, 3, 1, "strength");
         } else if (skill.equals("defense")) {
-            player = new Character("Peasant", 3, 5, 1);
+            player = new Character("Peasant", 3, 5, 1, "defense");
         } else {
-            player = new Character("Peasant", 0, 0, 10);
+            player = new Character("Peasant", 0, 0, 10, "luck");
         }
-        player.setSkill(skill);
     }
 
     public static String enemyName() {return enemy.getName();}
@@ -42,16 +41,20 @@ public class Game {
         enemyChoice = getEnemyChoice();
         if (enemyChoice.equals("Attack")) {
             enemy.setHealth(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
-            System.out.println(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
+            player.setHealth(enemy.baseDamage()+(enemy.getSkill().equals("strength")?5:0));
         } else if (enemyChoice.equals("Block")) {
             double damage = player.baseDamage()+(player.getSkill().equals("strength")?5:0)-enemy.baseDefense();
             if (damage < 0) damage = 0;
             enemy.setHealth(damage);
-            System.out.println(damage);
+            player.setHealth((double) (enemy.baseDefense() + (enemy.getSkill().equals("defense") ? 5 : 0)) / 2);
         } else {
+            if (Math.random()*enemy.getLuck() > 3) {
+                player.setHealth(player.getHealth()*.33);
+            } else {
+                enemy.setHealth(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
+            }
 //            if (Math.random()*) enemy.getluck > 3
         }
-        System.out.println(enemy.getHealth());
     }
 
     public static String getEnemyChoice() {
