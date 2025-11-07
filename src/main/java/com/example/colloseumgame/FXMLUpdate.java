@@ -95,16 +95,24 @@ public class FXMLUpdate {
     }
 
     public void attackButton(ActionEvent actionEvent) {
-        Game.attackChoice();
+        Game.attackChoice("attack");
+        updateHP();
+    }
+
+    public void blockButton(ActionEvent actionEvent) {
+        Game.attackChoice("defense");
+        updateHP();
+    }
+
+    public void dodgeButton(ActionEvent actionEvent) {
+        Game.attackChoice("dodge");
+        updateHP();
+    }
+
+    public void updateHP() {
         enemyHealthBar.setProgress(Game.enemy.getHealth()/100); //only works if enemy hp is 100
         enemyHPLabel.setText("HP : " + (int) Game.enemyHealth() + " / 100");
         playerHealthBar.setProgress(Game.player.getHealth()/100);
         playerHPLabel.setText("HP : " + (int) Game.player.getHealth() + " / 100");
-    }
-
-    public void blockButton(ActionEvent actionEvent) {
-    }
-
-    public void dodgeButton(ActionEvent actionEvent) {
     }
 }
