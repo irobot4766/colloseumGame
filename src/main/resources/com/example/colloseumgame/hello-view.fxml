@@ -63,8 +63,8 @@
                   <Label fx:id="items" alignment="CENTER" layoutX="38.0" layoutY="300.0" prefHeight="5.0" prefWidth="317.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Items: " textAlignment="CENTER" />
                   <Label alignment="CENTER" layoutX="474.0" layoutY="23.0" prefHeight="32.0" prefWidth="236.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Buy | Upgrade" textAlignment="CENTER" />
                   <Line endX="265.0" endY="-52.0" layoutX="460.0" layoutY="120.0" startY="-52.0" />
-                  <ListView fx:id="upgradeListView" layoutX="600.0" layoutY="105.0" prefHeight="120.0" prefWidth="116.0" />
-                  <ListView fx:id="itemListView" layoutX="461.0" layoutY="105.0" prefHeight="121.0" prefWidth="116.0" />
+                  <ListView fx:id="upgradeListView" layoutX="600.0" layoutY="105.0" onMouseClicked="#clickUpgrade" prefHeight="120.0" prefWidth="116.0" />
+                  <ListView fx:id="itemListView" layoutX="461.0" layoutY="105.0" onMouseClicked="#clickItems" prefHeight="121.0" prefWidth="116.0" />
                   <Label alignment="CENTER" layoutX="225.0" layoutY="341.0" prefHeight="20.0" prefWidth="332.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Items are only usable for one battle" textAlignment="CENTER" />
                   <Button layoutX="612.0" layoutY="243.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="92.0" text="Upgrade">
                      <font>
@@ -81,11 +81,12 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <Label fx:id="shopPriceLabel" alignment="CENTER" layoutX="475.0" layoutY="80.0" prefHeight="17.0" prefWidth="230.0" text="Price: $30 OR 1 Skill Point" textAlignment="CENTER" />
                </children>
             </AnchorPane>
         </content>
       </Tab>
-        <Tab fx:id="battleTab" text="Battle">
+        <Tab fx:id="battleTab" disable="true" text="Battle">
             <content>
                 <AnchorPane prefHeight="400.0" prefWidth="781.0" style="-fx-background-color: #f4f4f4;">
 
@@ -98,9 +99,9 @@
 
                     <!-- Player Info -->
                     <VBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="270.0" spacing="5">
-                        <Label fx:id="playerName" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" text="You: Peasant" />
                         <ProgressBar fx:id="playerHealthBar" prefWidth="250.0" progress="1.0" style="-fx-accent: #2a9d8f;" />
                         <Label fx:id="playerHPLabel" style="-fx-font-size: 12px; -fx-text-fill: #555;" text="HP: 100 / 100" />
+                  <Label fx:id="playerName1" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" text="You: Peasant" />
                     </VBox>
 
                     <!-- Battle Log -->
@@ -134,6 +135,7 @@
                      <Image url="@../../../images/audience.png" />
                   </image>
                </ImageView>
+               <Button fx:id="leaveButton" layoutX="36.0" layoutY="27.0" onAction="#leaveBattle" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 20 8 20;" text="Return" visible="false" />
 
                 </AnchorPane>
             </content>

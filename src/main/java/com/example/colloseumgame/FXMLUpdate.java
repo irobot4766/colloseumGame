@@ -3,6 +3,7 @@ package com.example.colloseumgame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 
@@ -43,6 +44,11 @@ public class FXMLUpdate {
     private Label enemyHPLabel;
     @FXML
     private Label playerHPLabel;
+
+    @FXML
+    private Button leaveButton;
+    @FXML
+    private Label shopPriceLabel;
 
     private String skill;
 
@@ -114,5 +120,38 @@ public class FXMLUpdate {
         enemyHPLabel.setText("HP : " + (int) Game.enemyHealth() + " / 100");
         playerHealthBar.setProgress(Game.player.getHealth()/100);
         playerHPLabel.setText("HP : " + (int) Game.player.getHealth() + " / 100");
+
+        if (Game.checkEnd()) {
+            if (Game.player.getHealth() > 0) {
+                Game.rewardPlayer();
+                returnMenu();
+            }
+        }
+    }
+
+    public void returnMenu() {
+        leaveButton.setDisable(false);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Battle Results");
+        alert.setHeaderText("You have won the battle!");
+        alert.setContentText(Game.enemy.getCoins() + " coins earned.");
+        if (Math.random()*Game.player.getLuck()+3>3) {
+            Game.upgradePoints++;
+            alert.setContentText(alert.getContentText() + " You have been gifted 1 skill point. Use it wisely.");
+        }
+        alert.showAndWait();
+    }
+
+    public void leaveBattle(ActionEvent actionEvent) {
+    }
+
+    public void clickUpgrade(MouseEvent mouseEvent) {
+        int tempIndex = upgradeListView.getSelectionModel().getSelectedIndex();
+        shopPriceLabel.setText("Price: $" + Game.upgradePrices[tempIndex] + " OR 1 Skill Point");
+    }
+
+    public void clickItems(MouseEvent mouseEvent) {
+        int tempIndex = itemListView.getSelectionModel().getSelectedIndex();
+        shopPriceLabel.setText("Price: $" + Game.itemPrices[tempIndex]);
     }
 }

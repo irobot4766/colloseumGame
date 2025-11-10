@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Character {
     private String name;
 
+    private int coins ;
     private double audience;
     private int attack;
     private int defense;
@@ -14,12 +15,13 @@ public class Character {
 
     private double health = 100;
 
-    public Character(String name, int attack, int defense, int luck, String skill) {
+    public Character(String name, int attack, int defense, int luck, String skill, int coins) {
         this.name = name;
         this.attack = attack;
         this.defense = defense;
         this.luck = luck;
         this.skill = skill;
+        this.coins = coins;
     }
 
     public String getSkill() {
@@ -29,6 +31,8 @@ public class Character {
     public double getHealth() {
         return health;
     }
+
+    public void resetHealth() {health = 100;}
 
     public void setHealth(double x) {
         health -= x;
@@ -81,4 +85,15 @@ public class Character {
         return itemNames;
     }
 
+    public void setCoins(int amt) {
+        coins += amt;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void giveSkillPt() {
+
+    }
 }
