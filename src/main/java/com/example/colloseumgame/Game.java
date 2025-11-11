@@ -2,7 +2,8 @@ package com.example.colloseumgame;
 
 import java.util.ArrayList;
 
-public class Game {
+public class
+Game {
     public static Character player;
     public static Character enemy = new Character("Knight", 3, 5, 3, "defense", 15);
     public static int upgradePoints;
@@ -134,5 +135,12 @@ public class Game {
         player.setHealth(100);
         player.resetHealth();
 
+    }
+
+    public static void upgradeSkill(int skill) {
+        if (player.getCoins()>=upgradePrices[skill]) {
+            player.setCoins(-upgradePrices[skill]);
+            player.upgrade(upgrades[skill]nk);
+        }
     }
 }

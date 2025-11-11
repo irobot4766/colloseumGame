@@ -20,6 +20,11 @@ public class FXMLUpdate {
     @FXML
     private Tab shopTab;
     @FXML
+    private Label coinsID;
+    @FXML
+    private Label skillsID;
+
+    @FXML
     private Tab battleTab;
     @FXML
     private ProgressBar strengthBar;
@@ -46,9 +51,16 @@ public class FXMLUpdate {
     private Label playerHPLabel;
 
     @FXML
-    private Button leaveButton;
+    private Button returnID;
     @FXML
     private Label shopPriceLabel;
+
+    @FXML
+    private Button attackID;
+    @FXML
+    private Button blockID;
+    @FXML
+    private Button dodgeID;
 
     private String skill;
 
@@ -74,6 +86,7 @@ public class FXMLUpdate {
         setupTab.setDisable(true);
         shopTab.setDisable(false);
         Game.initialize(skill);
+        updateLabels();
         updateProgressBar();
         updateListViews();
     }
@@ -96,7 +109,11 @@ public class FXMLUpdate {
 
     public void startBattle(ActionEvent actionEvent) {
         shopTab.setDisable(true);
+        returnID.setVisible(false);
         battleTab.setDisable(false);
+        attackID.setDisable(false);
+        blockID.setDisable(false);
+        dodgeID.setDisable(false);
         enemyName.setText("Opponent: " + Game.enemyName());
     }
 
@@ -130,7 +147,10 @@ public class FXMLUpdate {
     }
 
     public void returnMenu() {
-        leaveButton.setDisable(false);
+        attackID.setDisable(true);
+        blockID.setDisable(true);
+        dodgeID.setDisable(true);
+        returnID.setVisible(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Battle Results");
         alert.setHeaderText("You have won the battle!");
@@ -143,6 +163,9 @@ public class FXMLUpdate {
     }
 
     public void leaveBattle(ActionEvent actionEvent) {
+        battleTab.setDisable(true);
+        shopTab.setDisable(false);
+        updateLabels();
     }
 
     public void clickUpgrade(MouseEvent mouseEvent) {
@@ -153,5 +176,19 @@ public class FXMLUpdate {
     public void clickItems(MouseEvent mouseEvent) {
         int tempIndex = itemListView.getSelectionModel().getSelectedIndex();
         shopPriceLabel.setText("Price: $" + Game.itemPrices[tempIndex]);
+    }
+
+    public void updateLabels() {
+        skillsID.setText("Skill Points: " + Game.upgradePoints);
+        coinsID.setText("Coins: " + Game.player.getCoins());
+
+    }
+
+
+    public void upgradeButton(ActionEvent actionEvent) {
+        Game.upgradeSkill(upgradeListView.getSelectionModel().getSelectedIndex());
+    }
+
+    public void buyButton(ActionEvent actionEvent) {
     }
 }

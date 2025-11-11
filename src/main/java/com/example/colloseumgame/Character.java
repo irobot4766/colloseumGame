@@ -24,6 +24,12 @@ public class Character {
         this.coins = coins;
     }
 
+    public void upgrade(String skill) {
+        if (skill.equals("Strength")) attack++;
+        if (skill.equals("Defense")) defense++;
+        if (skill.equals("Luck")) luck++;
+    }
+
     public String getSkill() {
         return skill;
     }
