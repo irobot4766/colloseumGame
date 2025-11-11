@@ -155,7 +155,7 @@ public class FXMLUpdate {
         alert.setTitle("Battle Results");
         alert.setHeaderText("You have won the battle!");
         alert.setContentText(Game.enemy.getCoins() + " coins earned.");
-        if (Math.random()*Game.player.getLuck()+3>3) {
+        if (Math.random()*Game.player.getLuck()>3) {
             Game.upgradePoints++;
             alert.setContentText(alert.getContentText() + " You have been gifted 1 skill point. Use it wisely.");
         }
@@ -187,8 +187,14 @@ public class FXMLUpdate {
 
     public void upgradeButton(ActionEvent actionEvent) {
         Game.upgradeSkill(upgradeListView.getSelectionModel().getSelectedIndex());
+        updateLabels();
+        updateProgressBar();
     }
 
     public void buyButton(ActionEvent actionEvent) {
+        int tempIndex = itemListView.getSelectionModel().getSelectedIndex();
+        Game.addItem(tempIndex);
+        updateLabels();
+        updateProgressBar();
     }
 }

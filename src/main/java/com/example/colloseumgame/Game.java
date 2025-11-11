@@ -138,9 +138,19 @@ Game {
     }
 
     public static void upgradeSkill(int skill) {
-        if (player.getCoins()>=upgradePrices[skill]) {
-            player.setCoins(-upgradePrices[skill]);
-            player.upgrade(upgrades[skill]nk);
+        if (player.getCoins()>=upgradePrices[skill]||upgradePoints>0) {
+            player.upgrade(upgrades[skill]);
+            if (upgradePoints>0) {
+                upgradePoints--;
+            } else {
+                player.setCoins(-upgradePrices[skill]);
+            }
         }
+    }
+
+    public static void addItem(int itemN) {
+        if (itemN == 0) player.giveItem("Sword");
+        if (itemN == 1) player.giveItem("Shield");
+        if (itemN == 2) player.giveItem("Clover");
     }
 }

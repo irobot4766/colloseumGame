@@ -99,7 +99,7 @@ public class Character {
         return coins;
     }
 
-    public void giveSkillPt() {
-
+    public void giveItem(String item) {
+        items.add(new Item(item, item));
     }
 }
