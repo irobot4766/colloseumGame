@@ -61,6 +61,8 @@ public class FXMLUpdate {
     private Button blockID;
     @FXML
     private Button dodgeID;
+    @FXML
+    private Label resultsID;
 
     private String skill;
 
@@ -118,7 +120,7 @@ public class FXMLUpdate {
     }
 
     public void attackButton(ActionEvent actionEvent) {
-        Game.attackChoice("attack");
+        resultsID.setText(Game.attackChoice("attack"));
         updateHP();
     }
 
@@ -188,12 +190,14 @@ public class FXMLUpdate {
     public void upgradeButton(ActionEvent actionEvent) {
         Game.upgradeSkill(upgradeListView.getSelectionModel().getSelectedIndex());
         updateLabels();
+        shopPriceLabel.setText("Price:");
         updateProgressBar();
     }
 
     public void buyButton(ActionEvent actionEvent) {
         int tempIndex = itemListView.getSelectionModel().getSelectedIndex();
         Game.addItem(tempIndex);
+        shopPriceLabel.setText("Price:");
         updateLabels();
         updateProgressBar();
     }

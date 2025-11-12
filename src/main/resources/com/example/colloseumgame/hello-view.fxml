@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<TabPane prefHeight="400" prefWidth="781.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.colloseumgame.FXMLUpdate">
+<TabPane prefHeight="400" prefWidth="781.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.colloseumgame.FXMLUpdate">
     <tabs>
 
         <!-- ======================= SETUP TAB ======================= -->
@@ -138,6 +138,11 @@
                   </image>
                </ImageView>
                <Button fx:id="returnID" layoutX="36.0" layoutY="27.0" onAction="#leaveBattle" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 20 8 20;" text="Return" visible="false" />
+               <Label fx:id="resultsID" alignment="CENTER" layoutX="248.0" layoutY="128.0" prefHeight="95.0" prefWidth="286.0" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Label>
 
                 </AnchorPane>
             </content>

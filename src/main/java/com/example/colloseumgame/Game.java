@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class
 Game {
     public static Character player;
-    public static Character enemy = new Character("Knight", 3, 5, 3, "defense", 15);
+    public static ArrayList<Character> enemies = new ArrayList<>(5);
+    public static int currEnemy = 0;
     public static int upgradePoints;
     public static String[] upgrades = {"Strength", "Defense", "Luck"};
     public static int[] upgradePrices = {15, 15, 15};
@@ -21,12 +22,18 @@ Game {
         } else {
             player = new Character("Peasant", 0, 0, 10, "luck", 50);
         }
+
+        enemies.add(new Character("Homeless Man", 1, 1, 1, "luck", 5));
+        enemies.add(new Character("Guard", 2, 3, 2, "defense", 15));
+        enemies.add(new Character("Knight", 5, 5, 3, "luck", 25));
+        enemies.add(new Character("Prince", 7, 5, 8, "strength", 35));
+        enemies.add(new Character("Goliath", 10, 10, 7, "strength", 50));
     }
 
-    public static String enemyName() {return enemy.getName();}
+    public static String enemyName() {return enemies.get(currEnemy).getName();}
 
     public static double enemyHealth() {
-        return enemy.getHealth();
+        return enemies.get(currEnemy).getHealth();
     }
 
     public static double getStrengthP() {
@@ -45,23 +52,27 @@ Game {
     //block slams on dodge
     //attack slams on block
 
-    public static void attackChoice(String choice) {
+    public static String attackChoice(String choice) {
         String enemyChoice;
         enemyChoice = getEnemyChoice();
         if (choice.equals("attack")) {
             if (enemyChoice.equals("Attack")) {
-                enemy.setHealth(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
+                enemies.get(currEnemy).setHealth(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
                 player.setHealth(enemy.baseDamage()+(enemy.getSkill().equals("strength")?5:0));
+                return ("You chose to attack. " + enemy.getName() + " retaliated by attacking.");
             } else if (enemyChoice.equals("Block")) {
                 double damage = player.baseDamage()+(player.getSkill().equals("strength")?5:0)-((double)enemy.baseDefense()/2);
                 if (damage < 0) damage = 0;
                 enemy.setHealth(damage*2);
                 player.setHealth((double) (enemy.baseDefense() + (enemy.getSkill().equals("defense") ? 5 : 0)) / 2);
+                return enemy.getName() + " tried to block you from dodging. You attacked him instead.";
             } else {
-                if (Math.random()*enemy.getLuck() > 3) {
+                if (enemy.successfulDodge()) {
                     player.setHealth(player.getHealth()*.33);
+                    return "You tried to attack, but miserably failed. You have been brutally wounded.";
                 } else {
                     enemy.setHealth(player.baseDamage() + (player.getSkill().equals("strength") ? 5 : 0));
+                    return enemy.getName() + " tried to dodge your attack, but ate it anyway.";
                 }
             }
         } else if (choice.equals("defense")) {
@@ -74,7 +85,7 @@ Game {
                 enemy.setHealth(player.baseDefense()+(player.getSkill().equals("defense")?5:0));
                 player.setHealth(enemy.baseDefense()+(enemy.getSkill().equals("defense")?5:0));
             } else {
-                if (Math.random()*enemy.getLuck() > 5) { //if he tries to dodge
+                if (enemy.successfulDodge()) { //if he tries to dodge
                     enemy.setHealth(enemy.getHealth()*.15);
                 } else {
                     enemy.setHealth(enemy.getHealth()*.30);
@@ -82,25 +93,26 @@ Game {
             }
         } else {
             if (enemyChoice.equals("Attack")) {
-                if (Math.random()*player.getLuck() > 3) {
+                if (player.successfulDodge()) {
                     enemy.setHealth(enemy.getHealth()*.33);
                 } else {
                     player.setHealth(enemy.baseDamage() + (enemy.getSkill().equals("strength") ? 5 : 0));
                 }
             } else if (enemyChoice.equals("Block")) {
-                if (Math.random()*player.getLuck() > 5) {
+                if (player.successfulDodge()) {
                     player.setHealth(player.getHealth()*.15);
                 } else {
                     player.setHealth(player.getHealth()*.30);
                 }
             } else {
                 //but nothing happened
-                return;
+                return "But nothing happened...";
             }
 
         }
-
+    return "";
     }
+
 
     public static String getEnemyChoice() {
         String[] choices = {"Attack", "Block", "Dodge"};
@@ -144,6 +156,7 @@ Game {
                 upgradePoints--;
             } else {
                 player.setCoins(-upgradePrices[skill]);
+                upgradePrices[skill] += 5;
             }
         }
     }
