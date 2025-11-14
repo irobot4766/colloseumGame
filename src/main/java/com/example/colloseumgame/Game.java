@@ -1,6 +1,7 @@
 package com.example.colloseumgame;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class
 Game {
@@ -13,6 +14,58 @@ Game {
     public static String[] itemNames = {"Sword", "Shield", "Clover"};
     public static int[] itemPrices = {30, 25, 15};
 
+    public static String[] enemyNames = {
+            "Scourge",
+            "Iron",
+            "Vex",
+            "Cinder",
+            "Omen",
+            "Aura",
+            "Vandal",
+            "Sable",
+            "Talon",
+            "Fell",
+            "Praetor",
+            "Bane",
+            "Grit",
+            "Rage",
+            "Crest",
+            "Spite",
+            "Stone",
+            "Husk",
+            "Dread",
+            "Gloom",
+            "Warden",
+            "Grim",
+            "Apex",
+            "Ruin",
+            "Brute",
+            "Tusk",
+            "Shear",
+            "Slayer",
+            "Tide",
+            "Shackle",
+            "Flayer",
+            "Shade",
+            "Glaive",
+            "Visage",
+            "Wreck",
+            "Thrall",
+            "Aegis",
+            "Stalker",
+            "Viper",
+            "Valor",
+            "Reaver",
+            "Storm",
+            "Harrow",
+            "Rend",
+            "Cipher",
+            "Quarry",
+            "Specter",
+            "Lacer",
+            "Crush",
+            "Guard"
+    };
 
     public static void initialize(String skill) {
         if (skill.equals("strength")) {
@@ -58,51 +111,85 @@ Game {
         if (choice.equals("attack")) {
             if (enemyChoice.equals("Attack")) {
                 enemies.get(currEnemy).setHealth(player.baseDamage()+(player.getSkill().equals("strength")?5:0));
-                player.setHealth(enemy.baseDamage()+(enemy.getSkill().equals("strength")?5:0));
-                return ("You chose to attack. " + enemy.getName() + " retaliated by attacking.");
+                player.setHealth(enemies.get(currEnemy).
+                        baseDamage()+(enemies.get(currEnemy).
+                        getSkill().equals("strength")?5:0));
+                return ("You chose to attack. " + enemies.get(currEnemy).
+                        getName() + " retaliated by attacking.");
             } else if (enemyChoice.equals("Block")) {
-                double damage = player.baseDamage()+(player.getSkill().equals("strength")?5:0)-((double)enemy.baseDefense()/2);
+                double damage = player.baseDamage()+(player.getSkill().equals("strength")?5:0)-((double)enemies.get(currEnemy).
+                        baseDefense()/2);
                 if (damage < 0) damage = 0;
-                enemy.setHealth(damage*2);
-                player.setHealth((double) (enemy.baseDefense() + (enemy.getSkill().equals("defense") ? 5 : 0)) / 2);
-                return enemy.getName() + " tried to block you from dodging. You attacked him instead.";
+                enemies.get(currEnemy).
+                        setHealth(damage*2);
+                player.setHealth(enemies.get(currEnemy).blockedDamage());
+                return enemies.get(currEnemy).getName() + " tried to block you from dodging. You attacked him instead.";
             } else {
-                if (enemy.successfulDodge()) {
-                    player.setHealth(player.getHealth()*.33);
+                if (enemies.get(currEnemy).
+                        successfulDodge()) {
+                    player.setHealth(player.getHealth()*.50);
                     return "You tried to attack, but miserably failed. You have been brutally wounded.";
                 } else {
-                    enemy.setHealth(player.baseDamage() + (player.getSkill().equals("strength") ? 5 : 0));
-                    return enemy.getName() + " tried to dodge your attack, but ate it anyway.";
+                    enemies.get(currEnemy).
+                            setHealth(player.baseDamage() + (player.getSkill().equals("strength") ? 5 : 0));
+                    return enemies.get(currEnemy).
+                            getName() + " tried to dodge your attack, but ate it anyway.";
                 }
             }
         } else if (choice.equals("defense")) {
             if (enemyChoice.equals("Attack")) {
-                double damage = enemy.baseDamage()+(enemy.getSkill().equals("strength")?5:0)-player.baseDefense();
+                double damage = enemies.get(currEnemy).
+                        baseDamage()+(enemies.get(currEnemy).
+                        getSkill().equals("strength")?5:0)-player.baseDefense();
                 if (damage < 0) damage = 0;
                 player.setHealth(damage);
-                enemy.setHealth((double) (player.baseDefense() + (player.getSkill().equals("defense") ? 5 : 0)) / 2);
+                enemies.get(currEnemy).
+                        setHealth((double) (player.baseDefense() + (player.getSkill().equals("defense") ? 5 : 0)) / 2);
+                return "You tried to block the enemy from dodging. He attacked you instead.";
             } else if (enemyChoice.equals("Block")) {
-                enemy.setHealth(player.baseDefense()+(player.getSkill().equals("defense")?5:0));
-                player.setHealth(enemy.baseDefense()+(enemy.getSkill().equals("defense")?5:0));
+                enemies.get(currEnemy).
+                        setHealth(player.baseDefense()+(player.getSkill().equals("defense")?5:0));
+                player.setHealth(enemies.get(currEnemy).
+                        baseDefense()+(enemies.get(currEnemy).
+                        getSkill().equals("defense")?5:0));
+                return "You tried to block " + enemies.get(currEnemy).getName() + " however he had the same idea.";
             } else {
-                if (enemy.successfulDodge()) { //if he tries to dodge
-                    enemy.setHealth(enemy.getHealth()*.15);
+                if (enemies.get(currEnemy).
+                        successfulDodge()) { //if he tries to dodge
+                    enemies.get(currEnemy).
+                            setHealth(enemies.get(currEnemy).
+                                    getHealth()*.15);
+                    return enemies.get(currEnemy).getName() + " tries to dodge, however you grab him. He still manages to escape from your grip.";
                 } else {
-                    enemy.setHealth(enemy.getHealth()*.30);
+                    enemies.get(currEnemy).
+                            setHealth(enemies.get(currEnemy).
+                                    getHealth()*.30);
+                    return enemies.get(currEnemy).getName() + " tries to dodge, however you grab him. You deal a devastating amount of damage.";
+
                 }
             }
         } else {
             if (enemyChoice.equals("Attack")) {
                 if (player.successfulDodge()) {
-                    enemy.setHealth(enemy.getHealth()*.33);
+                    enemies.get(currEnemy).
+                            setHealth(enemies.get(currEnemy).
+                                    getHealth()*.50);
+                    return "You successfully dodged " + enemies.get(currEnemy).getName()+"'s attack and left him injured.";
+
                 } else {
-                    player.setHealth(enemy.baseDamage() + (enemy.getSkill().equals("strength") ? 5 : 0));
+                    player.setHealth(enemies.get(currEnemy).
+                            baseDamage() + (enemies.get(currEnemy).
+                            getSkill().equals("strength") ? 5 : 0));
+                    return "You attempted to dodge " + enemies.get(currEnemy).getName()+ "'s attack however got dusted";
                 }
             } else if (enemyChoice.equals("Block")) {
                 if (player.successfulDodge()) {
                     player.setHealth(player.getHealth()*.15);
+                    return "You barely escaped from the grips of " + enemies.get(currEnemy).getName();
                 } else {
                     player.setHealth(player.getHealth()*.30);
+                    return enemies.get(currEnemy).getName() + " left you begging for your life after you missed your dodge.";
+
                 }
             } else {
                 //but nothing happened
@@ -110,7 +197,6 @@ Game {
             }
 
         }
-    return "";
     }
 
 
@@ -138,15 +224,33 @@ Game {
         return itemList;
     }
 
+    public static String getCurrItems() {
+        String items = "";
+        for (String item: player.getItemNames()) {
+            items += item + ", ";
+        }
+        items = items.substring(0, items.length()-2);
+        return items;
+    }
+
     public static boolean checkEnd() {
-        return player.getHealth() <= 0 || enemy.getHealth() <= 0;
+        return player.getHealth() <= 0 || enemies.get(currEnemy).
+                getHealth() <= 0;
     }
 
     public static void rewardPlayer() {
-        player.setCoins(enemy.getCoins());
+        player.setCoins(enemies.get(currEnemy).
+                getCoins());
         player.setHealth(100);
         player.resetHealth();
+        player.resetItems();
+    }
 
+    public static void nextPlayer() {
+        if (currEnemy == 4) {
+            enemies.add(new Character(enemyNames[(int) (Math.random()*enemyNames.length)], (int) (Math.random()*5) + currEnemy*2, (int) (Math.random()*5) + currEnemy*2, (int) (Math.random()*5) + currEnemy*2, "strength", 30));
+        }
+        currEnemy++;
     }
 
     public static void upgradeSkill(int skill) {
@@ -162,8 +266,10 @@ Game {
     }
 
     public static void addItem(int itemN) {
+          
         if (itemN == 0) player.giveItem("Sword");
         if (itemN == 1) player.giveItem("Shield");
         if (itemN == 2) player.giveItem("Clover");
+        player.setCoins(-itemPrices[itemN]);
     }
 }

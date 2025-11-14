@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<TabPane prefHeight="400" prefWidth="781.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.colloseumgame.FXMLUpdate">
+<TabPane prefHeight="400" prefWidth="781.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.colloseumgame.FXMLUpdate">
     <tabs>
 
         <!-- ======================= SETUP TAB ======================= -->
@@ -65,7 +65,7 @@
                   <Line endX="265.0" endY="-52.0" layoutX="460.0" layoutY="120.0" startY="-52.0" />
                   <ListView fx:id="upgradeListView" layoutX="600.0" layoutY="105.0" onMouseClicked="#clickUpgrade" prefHeight="120.0" prefWidth="116.0" />
                   <ListView fx:id="itemListView" layoutX="461.0" layoutY="105.0" onMouseClicked="#clickItems" prefHeight="121.0" prefWidth="116.0" />
-                  <Label alignment="CENTER" layoutX="225.0" layoutY="341.0" prefHeight="20.0" prefWidth="332.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Items are only usable for one battle" textAlignment="CENTER" />
+                  <Label fx:id="itemsID" alignment="CENTER" layoutX="225.0" layoutY="341.0" prefHeight="20.0" prefWidth="332.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Items are only usable for one battle" textAlignment="CENTER" />
                   <Button layoutX="612.0" layoutY="243.0" mnemonicParsing="false" onAction="#upgradeButton" prefHeight="33.0" prefWidth="92.0" text="Upgrade">
                      <font>
                         <Font size="14.0" />

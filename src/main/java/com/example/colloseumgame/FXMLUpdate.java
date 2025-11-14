@@ -63,6 +63,8 @@ public class FXMLUpdate {
     private Button dodgeID;
     @FXML
     private Label resultsID;
+    @FXML
+    private Label itemsID;
 
     private String skill;
 
@@ -100,6 +102,8 @@ public class FXMLUpdate {
     }
 
     public void updateListViews() {
+        upgradeListView.getItems().clear();
+        itemListView.getItems().clear();
         for (String upgrade : Game.getUpgrades()) {
             upgradeListView.getItems().add(upgrade);
         }
@@ -117,6 +121,8 @@ public class FXMLUpdate {
         blockID.setDisable(false);
         dodgeID.setDisable(false);
         enemyName.setText("Opponent: " + Game.enemyName());
+        resultsID.setText("");
+        updateHP();
     }
 
     public void attackButton(ActionEvent actionEvent) {
@@ -125,17 +131,17 @@ public class FXMLUpdate {
     }
 
     public void blockButton(ActionEvent actionEvent) {
-        Game.attackChoice("defense");
+        resultsID.setText(Game.attackChoice("defense"));
         updateHP();
     }
 
     public void dodgeButton(ActionEvent actionEvent) {
-        Game.attackChoice("dodge");
+        resultsID.setText(Game.attackChoice("luck"));
         updateHP();
     }
 
     public void updateHP() {
-        enemyHealthBar.setProgress(Game.enemy.getHealth()/100); //only works if enemy hp is 100
+        enemyHealthBar.setProgress(Game.enemies.get(Game.currEnemy).getHealth()/100); //only works if enemy hp is 100
         enemyHPLabel.setText("HP : " + (int) Game.enemyHealth() + " / 100");
         playerHealthBar.setProgress(Game.player.getHealth()/100);
         playerHPLabel.setText("HP : " + (int) Game.player.getHealth() + " / 100");
@@ -143,10 +149,12 @@ public class FXMLUpdate {
         if (Game.checkEnd()) {
             if (Game.player.getHealth() > 0) {
                 Game.rewardPlayer();
+                Game.nextPlayer();
                 returnMenu();
             }
         }
     }
+
 
     public void returnMenu() {
         attackID.setDisable(true);
@@ -156,7 +164,7 @@ public class FXMLUpdate {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Battle Results");
         alert.setHeaderText("You have won the battle!");
-        alert.setContentText(Game.enemy.getCoins() + " coins earned.");
+        alert.setContentText(Game.enemies.get(Game.currEnemy).getCoins() + " coins earned.");
         if (Math.random()*Game.player.getLuck()>3) {
             Game.upgradePoints++;
             alert.setContentText(alert.getContentText() + " You have been gifted 1 skill point. Use it wisely.");
@@ -167,6 +175,7 @@ public class FXMLUpdate {
     public void leaveBattle(ActionEvent actionEvent) {
         battleTab.setDisable(true);
         shopTab.setDisable(false);
+        itemsID.setText("Items are only usable for one battle");
         updateLabels();
     }
 
@@ -195,10 +204,11 @@ public class FXMLUpdate {
     }
 
     public void buyButton(ActionEvent actionEvent) {
-        int tempIndex = itemListView.getSelectionModel().getSelectedIndex();
-        Game.addItem(tempIndex);
+        Game.addItem(itemListView.getSelectionModel().getSelectedIndex());
         shopPriceLabel.setText("Price:");
+        itemsID.setText("Item Buffs: " + Game.getCurrItems());
         updateLabels();
         updateProgressBar();
+        updateListViews();
     }
 }

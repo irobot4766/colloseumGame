@@ -70,8 +70,7 @@ public class Character {
     }
 
     public boolean successfulDodge() {
-        return (Math.random()<Math.pow(luck, 0.1)-0.5);
-    }
+        return (Math.random() < Math.min(1.0, Math.pow(luck, 0.1) - 0.5 + (skill.equals("luck") ? 0.05 : 0)));    }
 
     public double getAttack() {
         return attack;
@@ -101,5 +100,10 @@ public class Character {
 
     public void giveItem(String item) {
         items.add(new Item(item, item));
+        System.out.println(items.toString());
+    }
+
+    public void resetItems() {
+        items.clear();
     }
 }
