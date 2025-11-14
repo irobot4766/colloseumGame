@@ -147,10 +147,18 @@ public class FXMLUpdate {
         playerHPLabel.setText("HP : " + (int) Game.player.getHealth() + " / 100");
 
         if (Game.checkEnd()) {
-            if (Game.player.getHealth() > 0) {
+            System.out.println("game shouldve ended brosquito");
+            if (Game.player.getHealth() > Game.enemies.get(Game.currEnemy).getHealth()) {
                 Game.rewardPlayer();
                 Game.nextPlayer();
                 returnMenu();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Battle Results");
+                alert.setHeaderText("You have LOST the battle!");
+                alert.setContentText("Try again next time...");
+                alert.showAndWait();
+                battleTab.setDisable(true);
             }
         }
     }
@@ -181,12 +189,12 @@ public class FXMLUpdate {
 
     public void clickUpgrade(MouseEvent mouseEvent) {
         int tempIndex = upgradeListView.getSelectionModel().getSelectedIndex();
-        shopPriceLabel.setText("Price: $" + Game.upgradePrices[tempIndex] + " OR 1 Skill Point");
+        if (tempIndex > -1) shopPriceLabel.setText("Price: $" + Game.upgradePrices[tempIndex] + " OR 1 Skill Point");
     }
 
     public void clickItems(MouseEvent mouseEvent) {
         int tempIndex = itemListView.getSelectionModel().getSelectedIndex();
-        shopPriceLabel.setText("Price: $" + Game.itemPrices[tempIndex]);
+        if (tempIndex > -1) shopPriceLabel.setText("Price: $" + Game.itemPrices[tempIndex]);
     }
 
     public void updateLabels() {
@@ -197,18 +205,28 @@ public class FXMLUpdate {
 
 
     public void upgradeButton(ActionEvent actionEvent) {
-        Game.upgradeSkill(upgradeListView.getSelectionModel().getSelectedIndex());
-        updateLabels();
-        shopPriceLabel.setText("Price:");
-        updateProgressBar();
+        int tempIndex = upgradeListView.getSelectionModel().getSelectedIndex();
+        if (tempIndex > -1) {
+            Game.upgradeSkill(tempIndex);
+            updateLabels();
+            shopPriceLabel.setText("Price:");
+            updateProgressBar();
+        }
+
     }
 
     public void buyButton(ActionEvent actionEvent) {
-        Game.addItem(itemListView.getSelectionModel().getSelectedIndex());
-        shopPriceLabel.setText("Price:");
-        itemsID.setText("Item Buffs: " + Game.getCurrItems());
-        updateLabels();
-        updateProgressBar();
-        updateListViews();
+        int tempIndex = itemListView.getSelectionModel().getSelectedIndex();
+        System.out.println("test");
+        System.out.println(tempIndex);
+        if (tempIndex > -1) {
+            Game.addItem(tempIndex);
+            shopPriceLabel.setText("Price:");
+            itemsID.setText("Item Buffs: " + Game.getCurrItems());
+            updateLabels();
+            updateProgressBar();
+            updateListViews();
+        }
+
     }
 }

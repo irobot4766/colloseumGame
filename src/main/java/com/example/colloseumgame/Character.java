@@ -13,6 +13,10 @@ public class Character {
     private String skill;
     private ArrayList<Item> items = new ArrayList<>();
 
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
     private double health = 100;
 
     public Character(String name, int attack, int defense, int luck, String skill, int coins) {

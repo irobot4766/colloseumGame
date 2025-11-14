@@ -1,6 +1,7 @@
 package com.example.colloseumgame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class
@@ -216,11 +217,7 @@ Game {
 
     public static ArrayList<String> getItems() {
         ArrayList<String> itemList = new ArrayList<>();
-        for (String item : itemNames) {
-            if (!player.getItemNames().contains(item)) {
-                itemList.add(item);
-            }
-        }
+        itemList.addAll(Arrays.asList(itemNames));
         return itemList;
     }
 
@@ -234,8 +231,7 @@ Game {
     }
 
     public static boolean checkEnd() {
-        return player.getHealth() <= 0 || enemies.get(currEnemy).
-                getHealth() <= 0;
+        return player.getHealth() < 1 || enemies.get(currEnemy).getHealth() < 1;
     }
 
     public static void rewardPlayer() {
@@ -266,10 +262,10 @@ Game {
     }
 
     public static void addItem(int itemN) {
-          
-        if (itemN == 0) player.giveItem("Sword");
-        if (itemN == 1) player.giveItem("Shield");
-        if (itemN == 2) player.giveItem("Clover");
-        player.setCoins(-itemPrices[itemN]);
+        System.out.println(player.getItemNames().toString());
+        if (!player.getItemNames().contains(itemNames[itemN])) {
+            player.giveItem(itemNames[itemN]);
+            player.setCoins(-itemPrices[itemN]);
+        } //else dont do anything
     }
 }
